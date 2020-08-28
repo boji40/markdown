@@ -451,13 +451,13 @@ ViewModel层：视图模型层，视图模型层是View和Model沟通的桥梁�
 #### 14、安装mongodb数据库
 
 1. 下载安装（记住安装路径）
-2. 配置环境变量![image-20200819181639413](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200819181639413.png)
+2. 配置环境变量，在系统变量path中添加mongodb安装路径的bin目录![image-20200819181639413](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200819181639413.png)
 
 ![image-20200819181733509](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200819181733509.png)
 
 ![image-20200819181908425](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200819181908425.png)
 
-以管理员身份打开Windows PowerShell连接数据库，输入命令mongod --dbpath=D:/data/db，看到27017表示连接成功
+3.以管理员身份打开Windows PowerShell连接数据库，输入命令mongod --dbpath=D:/data/db，看到27017表示连接成功
 
 ![image-20200819182135851](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200819182135851.png)
 
@@ -487,3 +487,4 @@ fatal: unable to access 'https://github.com/boji40/jike.git/': The requested URL
 ![image-20200828165221327](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200828165221327.png)
 
 ![image-20200828165404657](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200828165404657.png)
+
