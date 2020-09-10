@@ -488,3 +488,22 @@ fatal: unable to access 'https://github.com/boji40/jike.git/': The requested URL
 
 ![image-20200828165404657](C:\Users\35747\AppData\Roaming\Typora\typora-user-images\image-20200828165404657.png)
 
+#### 16、uniapp 的 scroll-into-view无效
+
+问题：
+
+```
+<scroll-view class="chat" scroll-y="true" scroll-with-animation="true" :scroll-into-view="scrollToView">
+	<view class="chat-ls" v-for="(item,index) in msgs" :key="index" :id="'msg'+item.tip">
+</scroll-view>
+
+height: 100%;
+```
+
+scroll-into-view的值为字符串，对应相应的id，达到进到页面时显示到此id对应的位置的效果，官方文档有一句话说：使用竖向滚动时，需要给 `<scroll-view>` 一个固定高度，通过 css 设置 height。
+
+但是！奇怪的是，明明都已经设置了高度，然而还是没有效果。
+
+看一了篇文章，说是小程序的navBar是系统自带的，设置height：100%是能正确展示的；在新版本里面，app.json（uniapp是pages.json）里面设置了"navigationStyle":"custom"，自定义样式导航栏，在调整样式的时候，设置了padding-top，为了不与自定义的navBar冲突。
+
+解决：可以设置height: calc(100vh - 20rpx)   /或者直接height:100vh   就可以了
