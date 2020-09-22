@@ -507,3 +507,52 @@ scroll-into-view的值为字符串，对应相应的id，达到进到页面时�
 看一了篇文章，说是小程序的navBar是系统自带的，设置height：100%是能正确展示的；在新版本里面，app.json（uniapp是pages.json）里面设置了"navigationStyle":"custom"，自定义样式导航栏，在调整样式的时候，设置了padding-top，为了不与自定义的navBar冲突。
 
 解决：可以设置height: calc(100vh - 20rpx)   /或者直接height:100vh   就可以了
+
+#### 17、解决ElementUI的Message消息提示不允许重复出现的问题
+
+问题：message消息提示在每次进行点击时都会触发弹窗弹出，不太美观，今天把它稍稍优化了一下
+
+单独写一个js文件用于element ui 按需引入，具体实现代码如下：
+
+```
+//按需引入
+import {message} from 'element-ui'
+
+//实现class的私有属性
+const showMessage = Symbol('showMessage')
+//重写element ui 的message
+class DonMessage {
+    success (options, single = true) {
+        this[showMessage]('success', options, single)
+    }
+    warning (options, single = true) {
+        this[showMessage]('warning', options, single)
+    }
+    info (options, single = true) {
+        this[showMessage]('info', options, single)
+    }
+    error (options, single = true) {
+        this[showMessage]('error', options, single)
+    }
+
+    [showMessage] (type, options, single) {
+        if (single) {
+        //    判断是否已存在message
+            if (document.getElementsByClassName('el-message').length === 0) {
+                Message[type](options)
+            }
+        }
+    }
+}
+
+Vue.prototype.$message = new DonMessage()  //一定要写在class DonMessage类后面，因为class没有提升
+
+
+//因为使用了new DonMessage()的原因，导致this.$message(options)的方式无法直接使用，调用方式如下，更多参数可查看官方文档
+this.$message.success(options)
+//this.$message.success({
+	message:"成功提示",
+	...
+})
+```
+
